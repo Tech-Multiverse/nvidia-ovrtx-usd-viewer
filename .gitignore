@@ -1,0 +1,22 @@
+# Python build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+
+# Environment
+.env
+.venv/
+
+# Logs and outputs
+*.log
+output/
+
+# Uploaded USD files and runtime data
+uploads/
+
+# IDE
+.vscode/
+.idea/

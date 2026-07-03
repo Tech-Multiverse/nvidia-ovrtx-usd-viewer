@@ -143,6 +143,31 @@ document.getElementById('btn-load').addEventListener('click', () => {
     }
 });
 
+const sceneFileEl = document.getElementById('scene-file');
+const browseBtn = document.getElementById('btn-browse');
+
+browseBtn.addEventListener('click', () => sceneFileEl.click());
+
+sceneFileEl.addEventListener('change', async () => {
+    const file = sceneFileEl.files[0];
+    if (!file) return;
+    setStatus('Uploading scene...');
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+        const res = await fetch('/api/upload_scene', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!data.path) {
+            throw new Error(data.error || 'Upload failed');
+        }
+        scenePathEl.value = data.path;
+        send({ cmd: 'load', path: data.path });
+    } catch (err) {
+        console.error('Upload failed', err);
+        setStatus('Upload failed: ' + err.message);
+    }
+});
+
 document.getElementById('btn-list').addEventListener('click', () => {
     send({ cmd: 'list_prims' });
 });

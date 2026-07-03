@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Optional, Set
 
 import uvicorn
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, File, HTTPException, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -21,6 +21,7 @@ connected_clients: Set[WebSocket] = set()
 render_task: Optional[asyncio.Task] = None
 
 WEB_DIR = Path(__file__).resolve().parent.parent.parent / "web"
+UPLOADS_DIR = Path(__file__).resolve().parent.parent.parent / "uploads"
 
 DEFAULT_SCENE = str(
     Path(__file__).resolve().parent.parent.parent / "usd_samples" / "simple_scene.usda"
@@ -99,6 +100,26 @@ async def list_prims():
         return {"prims": []}
     prims = await asyncio.to_thread(viewer.query_prims)
     return {"prims": list(prims.keys())}
+
+
+@app.post("/api/upload_scene")
+async def upload_scene(file: UploadFile = File(...)):
+    UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    suffix = Path(file.filename or "scene.usda").suffix
+    if suffix.lower() not in {".usd", ".usda", ".usdc"}:
+        raise HTTPException(status_code=400, detail="Expected a .usd/.usda/.usdc file")
+    dest = UPLOADS_DIR / (Path(file.filename).name)
+    try:
+        with open(dest, "wb") as f:
+            while True:
+                chunk = await file.read(1024 * 1024)
+                if not chunk:
+                    break
+                f.write(chunk)
+    except Exception as exc:
+        logger.exception("Failed to save uploaded scene")
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    return {"path": str(dest.resolve())}
 
 
 @app.get("/api/selected")

@@ -13,7 +13,11 @@
             <div class="panel">
                 <label for="scene-path">Scene path</label>
                 <input id="scene-path" type="text" placeholder="/path/to/scene.usda" />
-                <button id="btn-load">Load</button>
+                <input id="scene-file" type="file" accept=".usd,.usda,.usdc" style="display:none" />
+                <div class="row">
+                    <button id="btn-browse">Browse...</button>
+                    <button id="btn-load">Load</button>
+                </div>
             </div>
             <div class="panel">
                 <button id="btn-list">List prims</button>

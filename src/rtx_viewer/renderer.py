@@ -57,10 +57,24 @@ class RTXViewerRenderer:
                 attribute_filter_mode=ovrtx.AttributeFilterMode.NONE,
             )
             if cameras:
-                self.camera_path = next(iter(cameras))
+                self.camera_path = self._pick_main_camera(cameras)
                 logger.info("Discovered camera: %s", self.camera_path)
             else:
                 logger.warning("No Camera found in scene")
+
+    @staticmethod
+    def _pick_main_camera(cameras: dict) -> str:
+        """Prefer a simple camera name over debug/test cameras."""
+        paths = list(cameras.keys())
+        for path in paths:
+            name = path.split("/")[-1].lower()
+            if name in {"camera", "camera0", "cam"}:
+                return path
+        for path in paths:
+            name = path.split("/")[-1].lower()
+            if "motion" not in name and "test" not in name:
+                return path
+        return paths[0]
 
     def load_scene(
         self,
