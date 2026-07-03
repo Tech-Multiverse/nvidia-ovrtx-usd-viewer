@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTX USD Viewer</title>
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+    <div id="app">
+        <aside id="sidebar">
+            <h1>RTX USD Viewer</h1>
+            <div class="panel">
+                <label for="scene-path">Scene path</label>
+                <input id="scene-path" type="text" placeholder="/path/to/scene.usda" />
+                <button id="btn-load">Load</button>
+            </div>
+            <div class="panel">
+                <button id="btn-list">List prims</button>
+                <ul id="prim-list"></ul>
+            </div>
+            <div class="panel" id="selected-panel">
+                <strong>Selected</strong>
+                <div id="selected-path">none</div>
+                <div class="row">
+                    <button data-cmd="translate" data-dx="-0.5" data-dy="0" data-dz="0">←X</button>
+                    <button data-cmd="translate" data-dx="0.5" data-dy="0" data-dz="0">X→</button>
+                    <button data-cmd="translate" data-dx="0" data-dy="0.5" data-dz="0">Y↑</button>
+                    <button data-cmd="translate" data-dx="0" data-dy="-0.5" data-dz="0">Y↓</button>
+                    <button data-cmd="translate" data-dx="0" data-dy="0" data-dz="0.5">Z+</button>
+                    <button data-cmd="translate" data-dx="0" data-dy="0" data-dz="-0.5">Z-</button>
+                </div>
+                <div class="row">
+                    <button data-cmd="rotate" data-axis="x" data-degrees="15">RotX</button>
+                    <button data-cmd="rotate" data-axis="y" data-degrees="15">RotY</button>
+                    <button data-cmd="rotate" data-axis="z" data-degrees="15">RotZ</button>
+                </div>
+                <div class="row">
+                    <button data-cmd="scale" data-sx="1.1" data-sy="1.1" data-sz="1.1">Scale+</button>
+                    <button data-cmd="scale" data-sx="0.9" data-sy="0.9" data-sz="0.9">Scale-</button>
+                </div>
+            </div>
+            <div class="panel">
+                <strong>Camera</strong>
+                <div class="row">
+                    <button data-cmd="camera" data-dx="0" data-dy="0" data-dz="-1">Forward</button>
+                    <button data-cmd="camera" data-dx="0" data-dy="0" data-dz="1">Back</button>
+                    <button data-cmd="camera" data-dx="-1" data-dy="0" data-dz="0">Left</button>
+                    <button data-cmd="camera" data-dx="1" data-dy="0" data-dz="0">Right</button>
+                </div>
+            </div>
+            <div id="status" class="panel">Connecting...</div>
+        </aside>
+        <main id="viewport">
+            <img id="stream" alt="RTX stream" />
+            <div id="overlay">Click on the image to pick a prim</div>
+        </main>
+    </div>
+    <script src="/web/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,974 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (0.8659840238436537, -3.4576100785554287, 0.9957673635717587)
+                double3 target = (-1.0475923406527698e-7, -0.0116547517257648, 0.8218411360850582)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/World/Camera"
+        }
+        dictionary metricsAssembler = {
+            dictionary "/World/Astronaut" = {
+            }
+            dictionary "/World/backdrop" = {
+            }
+            int version = 1
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./robot-ovrtx.usda"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            double "rtx:directLighting:sampledLighting:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:indirectDiffuse:maxRayUnexposedIntensity" = 6399.9990234375
+            double "rtx:pathtracing:fireflyFilter:maxPerEmissiveUnexposedIntensity" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSample" = 3199.99951171875
+            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse" = 3199.99951171875
+            double "rtx:raytracing:inscattering:maxRTSampleUnexposedIntensity" = 204799.96875
+            double "rtx:translucency:maxRayUnexposedIntensity" = 19199.998046875
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def "GR1T2_fourier_hand_6dof" (
+        prepend payload = @https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/5.1/Isaac/Robots/FourierIntelligence/GR-1/GR1T2_fourier_hand_6dof/GR1T2_fourier_hand_6dof.usd@
+    )
+    {
+        string isaac:namespace (
+            displayName = "Namespace"
+            doc = "Namespace of the prim in Isaac Sim"
+        )
+        quatd xformOp:orient = (0.7071067811865475, 0, 0, -0.7071067811865476)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0.9198241261348936)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+        over "base_link"
+        {
+        }
+
+        over "left_thigh_roll_link"
+        {
+        }
+
+        over "left_thigh_yaw_link"
+        {
+        }
+
+        over "left_thigh_pitch_link"
+        {
+        }
+
+        over "left_shank_pitch_link"
+        {
+        }
+
+        over "left_foot_pitch_link"
+        {
+        }
+
+        over "left_foot_roll_link"
+        {
+        }
+
+        over "right_thigh_roll_link"
+        {
+        }
+
+        over "right_thigh_yaw_link"
+        {
+        }
+
+        over "right_thigh_pitch_link"
+        {
+        }
+
+        over "right_shank_pitch_link"
+        {
+        }
+
+        over "right_foot_pitch_link"
+        {
+        }
+
+        over "right_foot_roll_link"
+        {
+        }
+
+        over "waist_yaw_link"
+        {
+        }
+
+        over "waist_pitch_link"
+        {
+        }
+
+        over "waist_roll_link"
+        {
+        }
+
+        over "head_roll_link"
+        {
+        }
+
+        over "head_pitch_link"
+        {
+        }
+
+        over "head_yaw_link"
+        {
+        }
+
+        over "left_upper_arm_pitch_link"
+        {
+        }
+
+        over "left_upper_arm_roll_link"
+        {
+        }
+
+        over "left_upper_arm_yaw_link"
+        {
+        }
+
+        over "left_lower_arm_pitch_link"
+        {
+        }
+
+        over "left_hand_yaw_link"
+        {
+        }
+
+        over "left_hand_roll_link"
+        {
+        }
+
+        over "left_hand_pitch_link"
+        {
+        }
+
+        over "L_index_proximal_link"
+        {
+        }
+
+        over "L_index_intermediate_link"
+        {
+        }
+
+        over "L_middle_proximal_link"
+        {
+        }
+
+        over "L_middle_intermediate_link"
+        {
+        }
+
+        over "L_pinky_proximal_link"
+        {
+        }
+
+        over "L_pinky_intermediate_link"
+        {
+        }
+
+        over "L_ring_proximal_link"
+        {
+        }
+
+        over "L_ring_intermediate_link"
+        {
+        }
+
+        over "L_thumb_proximal_base_link"
+        {
+        }
+
+        over "L_thumb_proximal_link"
+        {
+        }
+
+        over "L_thumb_distal_link"
+        {
+        }
+
+        over "right_upper_arm_pitch_link"
+        {
+        }
+
+        over "right_upper_arm_roll_link"
+        {
+        }
+
+        over "right_upper_arm_yaw_link"
+        {
+        }
+
+        over "right_lower_arm_pitch_link"
+        {
+        }
+
+        over "right_hand_yaw_link"
+        {
+        }
+
+        over "right_hand_roll_link"
+        {
+        }
+
+        over "right_hand_pitch_link"
+        {
+        }
+
+        over "R_index_proximal_link"
+        {
+        }
+
+        over "R_index_intermediate_link"
+        {
+        }
+
+        over "R_middle_proximal_link"
+        {
+        }
+
+        over "R_middle_intermediate_link"
+        {
+        }
+
+        over "R_pinky_proximal_link"
+        {
+        }
+
+        over "R_pinky_intermediate_link"
+        {
+        }
+
+        over "R_ring_proximal_link"
+        {
+        }
+
+        over "R_ring_intermediate_link"
+        {
+        }
+
+        over "R_thumb_proximal_base_link"
+        {
+        }
+
+        over "R_thumb_proximal_link"
+        {
+        }
+
+        over "R_thumb_distal_link"
+        {
+        }
+
+        over "joints"
+        {
+            over "left_hip_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_hip_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "waist_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_hip_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_hip_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "waist_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_hip_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_hip_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "waist_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_knee_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_knee_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "head_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_shoulder_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_ankle_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "head_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_shoulder_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_ankle_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "head_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_shoulder_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_elbow_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_elbow_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_wrist_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_wrist_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_wrist_roll_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "left_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "right_wrist_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_index_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_middle_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_pinky_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_ring_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_thumb_proximal_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_index_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_middle_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_pinky_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_ring_proximal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_thumb_proximal_yaw_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_index_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_middle_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_pinky_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_ring_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_thumb_proximal_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_index_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_middle_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_pinky_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_ring_intermediate_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_thumb_proximal_pitch_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "L_thumb_distal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+
+            over "R_thumb_distal_joint"
+            {
+                float state:angular:physics:position = 0
+                float state:angular:physics:velocity = 0
+            }
+        }
+    }
+
+    def Scope "Looks"
+    {
+        def Material "OmniPBR"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.01, 0.009999899, 0.009999899)
+                color3f inputs:diffuse_tint = (0.0849421, 0.08494125, 0.08494125)
+                float inputs:reflection_roughness_constant = 0.58
+                float inputs:specular_level = 0.099999994
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+    }
+
+    def Camera "Camera" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+        hide_in_stage_window = false
+        no_delete = false
+    )
+    {
+        float4[] clippingPlanes = []
+        float2 clippingRange = (1, 10000000)
+        float exposure = 0
+        float exposure:fStop = 5
+        float exposure:iso = 100
+        float exposure:responsivity = 1.1026709
+        float exposure:time = 0.02
+        float focalLength = 0.4
+        float focusDistance = 4.3388033
+        float fStop = 0
+        float horizontalAperture = 0.36
+        float horizontalApertureOffset = 0
+        bool omni:kit:cameraLock = 0
+        custom vector3d omni:kit:centerOfInterest = (0, 0, -4.366087661686078)
+        custom float omni:rtx:autoExposure:adaptationSpeed = 3.5
+        custom bool omni:rtx:autoExposure:enabled = 0
+        custom bool omni:rtx:autoExposure:histogramClamping:enabled = 1
+        custom float omni:rtx:autoExposure:histogramClamping:maxLuminance = 100000
+        custom float omni:rtx:autoExposure:histogramClamping:minLuminance = 50
+        custom token omni:rtx:autoExposure:histogramFilter = "median"
+        custom float omni:rtx:autoExposure:whitePointScale = 10
+        token projection = "perspective"
+        uniform token purpose = "default"
+        double shutter:close = 0
+        double shutter:open = 0
+        uniform token stereoRole = "mono"
+        float verticalAperture = 0.15
+        float verticalApertureOffset = 0
+        token visibility = "inherited"
+        float3 xformOp:rotateYXZ = (88.44333, -180, -161.41887)
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (1.4391742825435825, -4.1504801635880195, 0.7569055473620641)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
+    }
+
+    def Mesh "Plane"
+    {
+        float3[] extent = [(-0.5, -0.5, 0), (0.5, 0.5, 0)]
+        int[] faceVertexCounts = [4]
+        int[] faceVertexIndices = [0, 1, 3, 2]
+        normal3f[] normals = [(0, 0, 1), (0, 0, 1), (0, 0, 1), (0, 0, 1)] (
+            interpolation = "faceVarying"
+        )
+        point3f[] points = [(-0.5, -0.5, 0), (0.5, -0.5, 0), (-0.5, 0.5, 0), (0.5, 0.5, 0)]
+        bool primvars:isMatteObject = 1
+        texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (
+            interpolation = "faceVarying"
+        )
+        uniform token subdivisionScheme = "none"
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (13.959999999999999, 13.959999999999999, 13.959999999999999)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    def DomeLight "DomeLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:exposure = 0
+        float inputs:intensity = 1000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        asset inputs:texture:file = @https://omniverse-content-production.s3.us-west-2.amazonaws.com/Environments/2023_1/DomeLights/Indoor/ZetoCGcom_ExhibitionHall_Interior1.hdr@
+        token inputs:texture:format = "latlong"
+        token visibility = "inherited"
+        quatd xformOp:orient = (0.6087614290087207, 0, 0, -0.7933533402912352)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
+def "Render" (
+    hide_in_stage_window = true
+    no_delete = true
+)
+{
+    def RenderProduct "Camera"
+    {
+        rel camera = </World/Camera>
+        rel orderedVars = </Render/Camera/LdrColor>
+        int2 resolution = (1920, 1080)
+
+        def RenderVar "LdrColor"
+        {
+            string sourceName = "LdrColor"
+        }
+    }
+
+    def "OmniverseKit"
+    {
+        def "HydraTextures" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            def RenderProduct "omni_kit_widget_viewport_ViewportTexture_0" (
+                prepend apiSchemas = ["OmniRtxSettingsCommonAdvancedAPI_1", "OmniRtxSettingsRtAdvancedAPI_1", "OmniRtxSettingsPtAdvancedAPI_1", "OmniRtxPostColorGradingAPI_1", "OmniRtxPostChromaticAberrationAPI_1", "OmniRtxPostBloomPhysicalAPI_1", "OmniRtxPostMatteObjectAPI_1", "OmniRtxPostCompositingAPI_1", "OmniRtxPostDofAPI_1", "OmniRtxPostMotionBlurAPI_1", "OmniRtxPostTvNoiseAPI_1", "OmniRtxPostTonemapIrayReinhardAPI_1", "OmniRtxPostDebugSettingsAPI_1", "OmniRtxDebugSettingsAPI_1"]
+                hide_in_stage_window = true
+                no_delete = true
+            )
+            {
+                rel camera = </World/Camera>
+                token omni:rtx:ambientOcclusion:denoiserMode = "none"
+                token omni:rtx:background:source:texture:textureMode = "repeatMirrored"
+                token omni:rtx:background:source:type = "domeLight"
+                bool omni:rtx:debug:view:pixelDebug:enableFixedTextPos = 1
+                token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
+                bool omni:rtx:dlss:frameGeneration = 0
+                bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
+                bool omni:rtx:material:db:syncLoads = 1
+                token omni:rtx:post:dlss:execMode = "performance"
+                bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
+                bool omni:rtx:post:registeredCompositing:invertToneMap = 1
+                bool omni:rtx:pt:adaptiveSampling:filterError = 0
+                uint omni:rtx:pt:adaptiveSampling:fixedSppIterations = 2
+                float omni:rtx:pt:fireflyFilter:maxPerEmissiveUnexposedIntensity = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSample = 3199.9995
+                float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse = 3199.9995
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
+                int omni:rtx:pt:maxSamplesPerLaunch = 2073600
+                int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
+                bool omni:rtx:reflections:denoiser:enabled = 0
+                token omni:rtx:rendermode = "RealTimePathTracing"
+                color3f omni:rtx:rt:ambientLight:color = (0.1, 0.1, 0.1)
+                bool omni:rtx:rt:demoire = 0
+                float omni:rtx:rt:directLighting:maxRayUnexposedIntensity = 6399.999
+                bool omni:rtx:rt:ecoMode:enabled
+                float omni:rtx:rt:indirectdiffuse:maxRayUnexposedIntensity = 6399.999
+                float omni:rtx:rt:inscattering:maxRTSampleUnexposedIntensity = 204799.97
+                bool omni:rtx:rt:lightcache:spatialCache:dontResolveConflicts = 1
+                float omni:rtx:rt:refractions:maxRayUnexposedIntensity = 19199.998
+                int omni:rtx:rt:sss:samples = 1
+                uint omni:rtx:rtpt:maxVolumeBounces = 15
+                float omni:rtx:rtpt:modulatingRoughnessThreshold = 0.08
+                bool omni:rtx:scene:hydra:materialSyncLoads = 1
+                bool omni:rtx:scene:hydra:mdlMaterialWarmup = 1
+                uint omni:rtx:viewTile:limit = 4294967295
+                rel orderedVars = </Render/Vars/LdrColor>
+                custom bool overrideClipRange = 0
+                uniform int2 resolution = (1920, 1080)
+            }
+        }
+    }
+
+    def RenderSettings "OmniverseGlobalRenderSettings" (
+        prepend apiSchemas = ["OmniRtxSettingsGlobalRtAdvancedAPI_1", "OmniRtxSettingsGlobalPtAdvancedAPI_1"]
+        no_delete = true
+    )
+    {
+        rel products = </Render/OmniverseKit/HydraTextures/omni_kit_widget_viewport_ViewportTexture_0>
+    }
+
+    def "Vars"
+    {
+        def RenderVar "LdrColor" (
+            hide_in_stage_window = true
+            no_delete = true
+        )
+        {
+            uniform string sourceName = "LdrColor"
+        }
+    }
+}
+
+over "Background"
+{
+}
+
+over "Background_01"
+{
+}
+
+over "DomeLight"
+{
+    double3 xformOp:rotateZYX = (0, 0, 124.81587252174694)
+    double3 xformOp:scale = (0.9999991059303284, 0.9999991059303284, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX", "xformOp:scale"]
+}
+
+over "Looks"
+{
+    over "Backdrop"
+    {
+        over "Shader"
+        {
+            float inputs:albedo_add = 0.42
+            float2 inputs:detail_texture_scale = (0.1, 0.1)
+            float2 inputs:texture_scale = (10, 10)
+        }
+    }
+}
+
+over "Background_02"
+{
+}
+
+over "DomeLight_01"
+{
+    double3 xformOp:rotateZYX = (0, 0, 124.81587252174694)
+    double3 xformOp:scale = (0.9999991059303284, 0.9999991059303284, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateZYX", "xformOp:scale"]
+}
+
+over "Looks_01"
+{
+    over "Backdrop"
+    {
+        over "Shader"
+        {
+            float inputs:albedo_add = 0.42
+            float2 inputs:detail_texture_scale = (0.1, 0.1)
+            float2 inputs:texture_scale = (10, 10)
+        }
+    }
+}
+
+over Camera "OmniverseKit_Persp" (
+    prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float exposure:fStop = 5
+    float exposure:responsivity = 1.1026709
+    float exposure:time = 0.02
+    float focalLength = 18.147562
+    float focusDistance = 400
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -3.5573567375378015)
+    float3 xformOp:rotateXYZ = (87.19758, 1.7493051e-14, 14.106568)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0.8659840238436537, -3.4576100785554287, 0.9957673635717587)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over Camera "OmniverseKit_Front" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.2722219e-14, 90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (5, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over Camera "OmniverseKit_Right" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (90, -1.41245e-30, 1.2722219e-14)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, -5, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+
+over Camera "OmniverseKit_Top" (
+    customData = {
+        dictionary omni = {
+            dictionary kit = {
+                bool hide_in_stage_window = 1
+                bool no_delete = 1
+            }
+        }
+    }
+    hide_in_stage_window = true
+    kind = "component"
+    no_delete = true
+)
+{
+    float2 clippingRange = (1, 10000000)
+    float horizontalAperture = 50
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -5)
+    token projection = "orthographic"
+    float verticalAperture = 50
+    float3 xformOp:rotateXYZ = (-1.2722219e-14, -7.016709e-15, -90)
+    float3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 5)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+}
+

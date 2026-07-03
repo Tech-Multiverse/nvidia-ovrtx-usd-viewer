@@ -1,0 +1,2 @@
+[console_scripts]
+rtx-viewer = rtx_viewer.server:main
