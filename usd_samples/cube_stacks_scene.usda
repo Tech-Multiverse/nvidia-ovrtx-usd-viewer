@@ -24,14 +24,7 @@
             string authoring_layer = "./cube_stacks_scene.usda"
         }
         dictionary renderSettings = {
-            double "rtx:directLighting:sampledLighting:maxRayUnexposedIntensity" = 6399.9990234375
-            double "rtx:indirectDiffuse:maxRayUnexposedIntensity" = 6399.9990234375
-            double "rtx:pathtracing:fireflyFilter:maxPerEmissiveUnexposedIntensity" = 3199.99951171875
-            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSample" = 3199.99951171875
-            double "rtx:pathtracing:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse" = 3199.99951171875
             bool "rtx:post:histogram:enabled" = 1
-            double "rtx:raytracing:inscattering:maxRTSampleUnexposedIntensity" = 204799.96875
-            double "rtx:translucency:maxRayUnexposedIntensity" = 19199.998046875
         }
     }
     defaultPrim = "World"
@@ -1312,7 +1305,7 @@ def Camera "Camera0" (
     float fStop = 0
     float horizontalAperture = 20.955
     float horizontalApertureOffset = 0
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -400)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -1280.9651856777432)
     bool omni:rtx:autoExposure:enabled = 1
     token projection = "perspective"
     uniform token purpose = "default"
@@ -1322,9 +1315,9 @@ def Camera "Camera0" (
     float verticalAperture = 15.2908
     float verticalApertureOffset = 0
     token visibility = "inherited"
-    float3 xformOp:rotateYXZ = (-32.347122, 60.694214, 43.627945)
+    float3 xformOp:rotateYXZ = (-21.211943, 10.031897, 3.6622865)
     float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (21679.18061417337, 31555.875694341164, 19156.4717923397)
+    double3 xformOp:translate = (202.82383709429456, 716.328612014357, 790.4802433975768)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateYXZ", "xformOp:scale"]
 }
 
@@ -1369,12 +1362,15 @@ def "Render" (
                 token omni:rtx:directLighting:sampledLighting:denoisingTechnique = "None"
                 bool omni:rtx:dlss:frameGeneration = 1
                 bool omni:rtx:indirectDiffuse:denoiser:enabled = 0
+                bool omni:rtx:material:db:nonVisualMaterialCSV:enabled = 0
                 bool omni:rtx:post:aa:limitedOps = 0
+                token omni:rtx:post:dlss:execMode = "performance"
                 bool omni:rtx:post:registeredCompositing:invertColorCorrection = 1
                 bool omni:rtx:post:registeredCompositing:invertToneMap = 1
                 float omni:rtx:pt:fireflyFilter:maxPerEmissiveUnexposedIntensity = 3199.9995
                 float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSample = 3199.9995
                 float omni:rtx:pt:fireflyFilter:maxUnexposedIntensityPerSampleDiffuse = 3199.9995
+                bool omni:rtx:pt:lightcache:cached:dontResolveConflicts = 1
                 int omni:rtx:pt:maxSamplesPerLaunch = 2073600
                 int omni:rtx:pt:mgpu:maxPixelsPerRegionExponent = 12
                 bool omni:rtx:reflections:denoiser:enabled = 0
@@ -1393,7 +1389,7 @@ def "Render" (
                 uint omni:rtx:viewTile:limit = 4294967295
                 rel orderedVars = </Render/Vars/LdrColor>
                 custom bool overrideClipRange = 0
-                uniform int2 resolution = (1280, 720)
+                uniform int2 resolution = (1710, 1026)
             }
         }
     }
