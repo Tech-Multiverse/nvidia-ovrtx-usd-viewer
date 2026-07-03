@@ -10,6 +10,8 @@ body {
     overflow: hidden;
 }
 
+/* Layout: full-screen flex container with sidebar + viewport. */
+
 #app {
     display: flex;
     height: 100vh;
@@ -34,6 +36,7 @@ body {
     color: #76b900;
 }
 
+/* Reusable panel card used for every sidebar section. */
 .panel {
     background: #222;
     border-radius: 8px;
@@ -82,6 +85,7 @@ body {
     margin-top: 8px;
 }
 
+/* Selected prim panel: dimmed until a prim is selected. */
 #selected-path {
     font-family: monospace;
     font-size: 12px;
@@ -101,6 +105,7 @@ body {
     pointer-events: auto;
 }
 
+/* Scrollable prim list with hover and selection states. */
 #prim-list {
     list-style: none;
     padding: 0;
@@ -135,6 +140,7 @@ body {
     margin-top: auto;
 }
 
+/* Main viewport: centers the stream image and overlays the hint. */
 #viewport {
     flex: 1;
     position: relative;

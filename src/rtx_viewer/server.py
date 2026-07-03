@@ -3,6 +3,7 @@
 import asyncio
 import json
 import logging
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional, Set
@@ -16,10 +17,16 @@ from .renderer import RTXViewerRenderer
 
 logger = logging.getLogger(__name__)
 
+# Global state managed by the FastAPI lifespan context. The renderer is created
+# once at startup and shared by all WebSocket clients. The render loop task
+# runs continuously and only does work when clients are connected and a scene
+# is loaded.
 viewer: Optional[RTXViewerRenderer] = None
 connected_clients: Set[WebSocket] = set()
 render_task: Optional[asyncio.Task] = None
 
+# Paths are resolved relative to this source file so the project works from
+# any checkout location without hard-coding a directory.
 WEB_DIR = Path(__file__).resolve().parent.parent.parent / "web"
 UPLOADS_DIR = Path(__file__).resolve().parent.parent.parent / "uploads"
 
@@ -29,6 +36,7 @@ DEFAULT_SCENE = str(
 
 
 async def broadcast_frame(frame_bytes: bytes) -> None:
+    """Send a JPEG frame to every connected WebSocket client."""
     dead = set()
     for client in connected_clients:
         try:
@@ -47,7 +55,12 @@ async def send_json(client: WebSocket, message: dict) -> None:
 
 
 async def render_loop() -> None:
-    """Continuously render frames and broadcast them as JPEG bytes."""
+    """Continuously render frames and broadcast them as JPEG bytes.
+
+    The loop is cheap when idle: it sleeps when no clients are connected or
+    no scene is loaded. Rendering happens in a worker thread so the asyncio
+    event loop stays responsive to WebSocket/HTTP traffic.
+    """
     while True:
         try:
             if not connected_clients or not viewer.has_scene:
@@ -63,11 +76,13 @@ async def render_loop() -> None:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Create the shared renderer and start the background render loop."""
     global viewer, render_task
     logging.basicConfig(level=logging.INFO)
     viewer = RTXViewerRenderer(width=1280, height=720)
     render_task = asyncio.create_task(render_loop())
     yield
+    # Shutdown: stop the render loop and release the RTX renderer.
     if render_task:
         render_task.cancel()
         try:
@@ -104,6 +119,7 @@ async def list_prims():
 
 @app.post("/api/upload_scene")
 async def upload_scene(file: UploadFile = File(...)):
+    """Accept a USD file from the browser and save it to uploads/."""
     UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
     suffix = Path(file.filename or "scene.usda").suffix
     if suffix.lower() not in {".usd", ".usda", ".usdc"}:
@@ -146,6 +162,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 async def handle_command(client: WebSocket, data: dict) -> None:
+    """Route an incoming WebSocket JSON command to the renderer."""
     cmd = data.get("cmd")
     try:
         if cmd == "load":
@@ -240,7 +257,8 @@ async def handle_command(client: WebSocket, data: dict) -> None:
 
 
 def main():
-    uvicorn.run("rtx_viewer.server:app", host="0.0.0.0", port=8080, reload=False)
+    port = int(os.environ.get("PORT", 8080))
+    uvicorn.run("rtx_viewer.server:app", host="0.0.0.0", port=port, reload=False)
 
 
 if __name__ == "__main__":

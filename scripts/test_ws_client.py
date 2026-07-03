@@ -1,3 +1,4 @@
+"""End-to-end WebSocket test: load default scene, list prims, receive a frame, pick."""
 import asyncio
 import json
 import urllib.request

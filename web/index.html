@@ -8,8 +8,11 @@
 </head>
 <body>
     <div id="app">
+        <!-- Sidebar: scene loading, prim list, transform controls, status. -->
         <aside id="sidebar">
             <h1>RTX USD Viewer</h1>
+
+            <!-- Scene loading: path input + file picker. -->
             <div class="panel">
                 <label for="scene-path">Scene path</label>
                 <input id="scene-path" type="text" placeholder="/path/to/scene.usda" />
@@ -19,10 +22,13 @@
                     <button id="btn-load">Load</button>
                 </div>
             </div>
+            <!-- Prim list: populated by the WebSocket list_prims command. -->
             <div class="panel">
                 <button id="btn-list">List prims</button>
                 <ul id="prim-list"></ul>
             </div>
+
+            <!-- Selected prim controls: enabled when a prim is picked/selected. -->
             <div class="panel" id="selected-panel">
                 <strong>Selected</strong>
                 <div id="selected-path">none</div>
@@ -44,6 +50,7 @@
                     <button data-cmd="scale" data-sx="0.9" data-sy="0.9" data-sz="0.9">Scale-</button>
                 </div>
             </div>
+            <!-- Camera movement controls. -->
             <div class="panel">
                 <strong>Camera</strong>
                 <div class="row">
@@ -53,8 +60,11 @@
                     <button data-cmd="camera" data-dx="1" data-dy="0" data-dz="0">Right</button>
                 </div>
             </div>
+            <!-- Status bar at the bottom of the sidebar. -->
             <div id="status" class="panel">Connecting...</div>
         </aside>
+
+        <!-- Main viewport: the streamed RTX image and the click overlay. -->
         <main id="viewport">
             <img id="stream" alt="RTX stream" />
             <div id="overlay">Click on the image to pick a prim</div>

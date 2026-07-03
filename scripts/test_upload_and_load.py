@@ -1,3 +1,4 @@
+"""Full pipeline test: upload a USD file via HTTP and load it over WebSocket."""
 import asyncio
 import json
 import urllib.request

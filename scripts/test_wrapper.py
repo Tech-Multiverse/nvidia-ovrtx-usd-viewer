@@ -1,3 +1,4 @@
+"""Test the RTXViewerRenderer wrapper directly: load, render, and pick."""
 import asyncio
 from pathlib import Path
 

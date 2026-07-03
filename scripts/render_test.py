@@ -1,3 +1,4 @@
+"""Standalone test that renders a built-in ovrtx scene to a PNG."""
 import numpy as np
 import ovrtx
 from pathlib import Path

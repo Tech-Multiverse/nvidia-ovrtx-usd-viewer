@@ -25,10 +25,14 @@ class RTXViewerRenderer:
     ):
         self.width = width
         self.height = height
+        # Optional overrides; if None they are discovered from the USD stage.
         self.render_product = render_product
         self.camera_path = camera_path
         self.selected_path: Optional[str] = None
         self.has_scene = False
+        # ovrtx is not thread-safe across concurrent calls, so wrap every
+        # renderer access in this lock. asyncio uses to_thread() to run these
+        # calls without blocking the event loop.
         self._lock = threading.Lock()
 
         config = ovrtx.RendererConfig(
@@ -39,7 +43,13 @@ class RTXViewerRenderer:
         logger.info("ovrtx renderer created")
 
     def _discover_paths(self) -> None:
-        """Pick the first render product and camera if not already set."""
+        """Auto-detect the render product and camera from the opened stage.
+
+        USD scenes can contain many RenderProducts and Cameras. We pick sane
+        defaults so the caller can load a scene without knowing its internal
+        paths. Explicit render_product / camera_path passed to load_scene()
+        always take precedence.
+        """
         if not self.render_product:
             products = self._renderer.query_prims(
                 require_all=[(ovrtx.FilterKind.PRIM_TYPE, "RenderProduct")],
@@ -64,7 +74,12 @@ class RTXViewerRenderer:
 
     @staticmethod
     def _pick_main_camera(cameras: dict) -> str:
-        """Prefer a simple camera name over debug/test cameras."""
+        """Return the best default camera from a set of paths.
+
+        Some scenes include debug/test cameras (e.g. MotionTestCamera). The
+        heuristic prefers the obvious main camera, then any non-test camera,
+        then falls back to the first one available.
+        """
         paths = list(cameras.keys())
         for path in paths:
             name = path.split("/")[-1].lower()
@@ -82,13 +97,19 @@ class RTXViewerRenderer:
         render_product: Optional[str] = None,
         camera_path: Optional[str] = None,
     ) -> None:
+        """Open a USD stage, discover render paths, and render warm-up frames."""
         with self._lock:
+            # Apply explicit overrides (or clear previous overrides to allow
+            # rediscovery when switching scenes).
             self.render_product = render_product
             self.camera_path = camera_path
+
             self._renderer.open_usd(usd_path)
             self._renderer.reset()
             self._discover_paths()
-            # Quick warm-up so the first streamed frame is not black.
+
+            # Render a couple of warm-up frames so the first streamed frame
+            # has materials and lighting resolved instead of being black.
             if self.render_product:
                 for _ in range(2):
                     self._renderer.step(
@@ -108,7 +129,11 @@ class RTXViewerRenderer:
             )
 
     def render_frame_jpeg(self) -> bytes:
-        """Render one frame and return it as JPEG bytes."""
+        """Render one frame and return it as JPEG bytes.
+
+        The renderer returns a 4-channel RGBA buffer (uint8). We drop the
+        alpha channel and encode to JPEG for streaming to the browser.
+        """
         with self._lock:
             products = self._renderer.step(
                 render_products={self.render_product},
@@ -128,9 +153,12 @@ class RTXViewerRenderer:
 
     def pick(self, nx: float, ny: float) -> Optional[str]:
         """Pick the prim at normalized screen coordinates (0..1, 0..1)."""
+        # Convert normalized coordinates to pixel coordinates on the render.
         x = int(nx * self.width)
         y = int(ny * self.height)
         with self._lock:
+            # Enqueue a 1x1 pick query at the pixel. The next render step
+            # produces a pick hit buffer containing the prim path ID.
             self._renderer.enqueue_pick_query(
                 render_product_path=self.render_product,
                 left=x,
@@ -146,6 +174,7 @@ class RTXViewerRenderer:
             pick_var = frame.render_vars[ovrtx.OVRTX_RENDER_VAR_PICK_HIT]
             mapping = pick_var.map(device=ovrtx.Device.CPU)
 
+            # The pick buffer contains hit metadata. If no hit, return None.
             hit_count = int(
                 np.from_dlpack(mapping.params["hitCount"]).reshape(-1)[0]
             )
@@ -153,6 +182,7 @@ class RTXViewerRenderer:
                 mapping.unmap()
                 return None
 
+            # primPath is an array of path IDs; take the closest hit (first).
             prim_paths = np.from_dlpack(mapping["primPath"]).copy().reshape(-1)
             path_id = int(prim_paths[0])
             mapping.unmap()
@@ -162,7 +192,12 @@ class RTXViewerRenderer:
             return path
 
     def select(self, prim_path: Optional[str]) -> None:
-        """Highlight the given prim with the selection outline."""
+        """Highlight the given prim with the selection outline.
+
+        The selection outline group attribute controls which prims receive the
+        bright outline in the RTX render. We clear the previous selection and
+        set the new one to group 1.
+        """
         with self._lock:
             if self.selected_path:
                 self._renderer.write_attribute(
@@ -180,6 +215,7 @@ class RTXViewerRenderer:
         logger.info("Selected: %s", prim_path)
 
     def _get_xform(self, prim_path: str) -> np.ndarray:
+        # ovrtx exposes the local transform as a 4x4 matrix via omni:xform.
         tensor = self._renderer.read_attribute("omni:xform", [prim_path])
         return np.from_dlpack(tensor).reshape(1, 4, 4).copy()
 
@@ -191,8 +227,10 @@ class RTXViewerRenderer:
         )
 
     def translate(self, prim_path: str, dx: float, dy: float, dz: float) -> None:
+        """Translate a prim by adding an offset to its current 4x4 matrix."""
         with self._lock:
             matrix = self._get_xform(prim_path)
+            # The translation lives in the last column of the 4x4 matrix.
             matrix[0, 3, 0] += dx
             matrix[0, 3, 1] += dy
             matrix[0, 3, 2] += dz
@@ -205,6 +243,8 @@ class RTXViewerRenderer:
             matrix = self._get_xform(prim_path)[0]
             radians = math.radians(degrees)
             c, s = math.cos(radians), math.sin(radians)
+            # Build the rotation matrix for the requested axis and pre-multiply
+            # it with the existing transform.
             if axis == "x":
                 rot = np.array(
                     [[1, 0, 0, 0], [0, c, -s, 0], [0, s, c, 0], [0, 0, 0, 1]],
@@ -227,7 +267,10 @@ class RTXViewerRenderer:
         logger.info("Rotated %s around %s by %g deg", prim_path, axis, degrees)
 
     def scale(self, prim_path: str, sx: float, sy: float, sz: float) -> None:
-        """Scale the prim uniformly or per-axis."""
+        """Scale the prim uniformly or per-axis.
+
+        The w component stays at 1.0 so homogeneous coordinates remain valid.
+        """
         with self._lock:
             matrix = self._get_xform(prim_path)[0]
             scale = np.diag([sx, sy, sz, 1.0])

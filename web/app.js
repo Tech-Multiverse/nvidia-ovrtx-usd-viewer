@@ -1,3 +1,4 @@
+// DOM elements used across the UI.
 const statusEl = document.getElementById('status');
 const streamEl = document.getElementById('stream');
 const selectedPathEl = document.getElementById('selected-path');
@@ -14,6 +15,7 @@ function setStatus(text) {
 }
 
 function connect() {
+    // Open a WebSocket to the same host that served the page.
     const proto = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const url = `${proto}//${window.location.host}/ws`;
     ws = new WebSocket(url);
@@ -21,6 +23,7 @@ function connect() {
 
     ws.onopen = async () => {
         setStatus('Connected');
+        // Ask the server for the default scene path and load it automatically.
         try {
             const res = await fetch('/api/default_scene');
             const data = await res.json();
@@ -31,11 +34,14 @@ function connect() {
         } catch (err) {
             console.error('Failed to fetch default scene', err);
         }
+        // Refresh the prim list once the default scene is loaded.
         send({ cmd: 'list_prims' });
     };
 
     ws.onmessage = (event) => {
         if (event.data instanceof ArrayBuffer) {
+            // Binary messages are JPEG frames. Update the image and clean up
+            // the previous blob URL to avoid memory leaks.
             const blob = new Blob([event.data], { type: 'image/jpeg' });
             const oldUrl = streamEl.src;
             streamEl.src = URL.createObjectURL(blob);
@@ -117,6 +123,7 @@ function updateSelectedUI() {
 }
 
 function renderPrimList(paths) {
+    // Render every prim path as a clickable list item.
     primListEl.innerHTML = '';
     for (const path of paths) {
         const li = document.createElement('li');
@@ -130,6 +137,8 @@ function renderPrimList(paths) {
 }
 
 streamEl.addEventListener('click', (event) => {
+    // Convert click coordinates to normalized 0..1 image space and ask the
+    // server to pick the prim at that pixel.
     const rect = streamEl.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
@@ -143,6 +152,7 @@ document.getElementById('btn-load').addEventListener('click', () => {
     }
 });
 
+// File picker wiring: clicking Browse opens the hidden <input type="file">.
 const sceneFileEl = document.getElementById('scene-file');
 const browseBtn = document.getElementById('btn-browse');
 
@@ -155,6 +165,7 @@ sceneFileEl.addEventListener('change', async () => {
     const formData = new FormData();
     formData.append('file', file);
     try {
+        // Upload the file to the server, then load the returned path.
         const res = await fetch('/api/upload_scene', { method: 'POST', body: formData });
         const data = await res.json();
         if (!data.path) {
@@ -172,6 +183,7 @@ document.getElementById('btn-list').addEventListener('click', () => {
     send({ cmd: 'list_prims' });
 });
 
+// Wire up every transform/camera button that declares data-cmd attributes.
 for (const btn of document.querySelectorAll('button[data-cmd]')) {
     const cmd = btn.dataset.cmd;
     btn.addEventListener('click', () => {

@@ -1,5 +1,7 @@
+"""Check that all runtime dependencies (Omniverse + web stack) are importable."""
 import sys
 import importlib
+
 
 def check(name):
     try:

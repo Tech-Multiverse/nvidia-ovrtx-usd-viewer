@@ -1,8 +1,0 @@
-fastapi>=0.139
-uvicorn>=0.49
-websockets>=16
-pillow>=12
-numpy>=2
-
-[ovrtx]
-ovrtx>=0.3

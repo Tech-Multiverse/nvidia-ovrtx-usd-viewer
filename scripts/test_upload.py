@@ -1,3 +1,4 @@
+"""Test the /api/upload_scene endpoint by uploading a local USD file."""
 import urllib.request
 import sys
 
