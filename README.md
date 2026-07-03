@@ -1,8 +1,12 @@
 # RTX USD Viewer
 
+## 🚀 PROJECT VIDEO AND ARTICLE COMING SOON!!
+
 A real-time **USD scene viewer** that runs in the browser. It uses NVIDIA's `ovrtx` (Omniverse RTX) Python package to render locally with RTX, then streams JPEG frames to a web UI over WebSocket. You can load any local USD scene, inspect the prim hierarchy, pick prims by clicking the rendered image, and transform the selected prim.
 
 This project is intended as a **minimal, hackable reference** for building browser-based RTX tools on top of Omniverse libraries.
+
+<img src="_images/ovrtx-usd-viewer-thumb.png" alt="Project Screenshot" width="600"/>
 
 ---
 
