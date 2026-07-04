@@ -41,7 +41,7 @@ The following workflow creates a conda environment, installs `uv`, pulls the `ov
 1. **Clone this repository and enter it.**
 
    ```powershell
-   git clone <repo-url>
+   git clone https://github.com/Tech-Multiverse/nvidia-ovrtx-usd-viewer
    cd nvidia-ovrtx-usd-viewer
    ```
 
