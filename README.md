@@ -196,6 +196,7 @@ python scripts/render_test.py
 - **Missing texture warnings**: Warnings like `checkerboard.png` not found are harmless if the material still renders. Copy the referenced texture next to the USD file to resolve them.
 - **Wrong camera**: The auto-discovery prefers the first non-test camera. If a scene has unusual camera names, you can extend `RTXViewerRenderer._pick_main_camera` or load with an explicit `camera_path`.
 - **Port 8080 is in use**: Change the port in `src/rtx_viewer/server.py` in the `main()` function, or set `PORT` in the environment and restart.
+- **Validate ovrtx Independantly**: If you continue to run into issues, I recommend cloning the [ovrtx](https://github.com/nvidia-omniverse/ovrtx) repository and running through their "Getting Started" guide to ensure that your system runs that correctly.
 
 ---
 
