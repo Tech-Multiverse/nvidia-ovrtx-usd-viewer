@@ -40,33 +40,33 @@ The following workflow creates a conda environment, installs `uv`, pulls the `ov
 
 1. **Clone this repository and enter it.**
 
-   ```powershell
-   git clone https://github.com/Tech-Multiverse/nvidia-ovrtx-usd-viewer
+   ```bash
+   git clone https://github.com/Tech-Multiverse/nvidia-ovrtx-usd-viewer.git
    cd nvidia-ovrtx-usd-viewer
    ```
 
 2. **Create and activate a conda environment.**
 
-   ```powershell
+   ```bash
    conda create -n ovrtx_env python=3.12
    conda activate ovrtx_env
    ```
 
 3. **Install `uv`.**
 
-   ```powershell
+   ```bash
    pip install uv
    ```
 
 4. **Add `ovrtx` and the web dependencies.**
 
-   ```powershell
+   ```bash
    uv add ovrtx
    ```
 
 5. **Install project dependencies.**
 
-   ```powershell
+   ```bash
    uv pip install -e .
    ```
 
@@ -78,7 +78,7 @@ Start the server with live-streamed logs:
 
 **NOTE**: The server takes time to boot up the first time it runs. More complex USD scenes will also take longer to load the first time they are opened.
 
-```powershell
+```bash
 python -m rtx_viewer.server
 ```
 
@@ -185,13 +185,13 @@ The `scripts/` folder contains small standalone tools:
 
 Run any of them with `uv run`, for example:
 
-```powershell
+```bash
 uv run python scripts/render_test.py
 ```
 
 Or with the conda environment directly:
 
-```powershell
+```bash
 conda activate ovrtx_env
 python scripts/render_test.py
 ```
