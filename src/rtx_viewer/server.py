@@ -258,7 +258,8 @@ async def handle_command(client: WebSocket, data: dict) -> None:
 
 def main():
     port = int(os.environ.get("PORT", 8080))
-    uvicorn.run("rtx_viewer.server:app", host="0.0.0.0", port=port, reload=False)
+    host = os.environ.get("HOST", "127.0.0.1")
+    uvicorn.run("rtx_viewer.server:app", host=host, port=port, reload=False)
 
 
 if __name__ == "__main__":

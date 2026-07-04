@@ -38,30 +38,36 @@ This project is intended as a **minimal, hackable reference** for building brows
 
 The following workflow creates a conda environment, installs `uv`, pulls the `ovrtx` package with `uv`, and installs the web-server dependencies from this repo.
 
-1. **Create and activate a conda environment.**
+1. **Clone this repository and enter it.**
+
+   ```powershell
+   git clone <repo-url>
+   cd nvidia-ovrtx-usd-viewer
+   ```
+
+2. **Create and activate a conda environment.**
 
    ```powershell
    conda create -n ovrtx_env python=3.12
    conda activate ovrtx_env
    ```
 
-2. **Install `uv`.**
+3. **Install `uv`.**
 
    ```powershell
    pip install uv
    ```
 
-3. **Add `ovrtx` and the web dependencies.**
+4. **Add `ovrtx` and the web dependencies.**
 
    ```powershell
    uv add ovrtx
    ```
 
-4. **Clone this repository and enter it.**
+5. **Install project dependencies.**
 
    ```powershell
-   git clone <repo-url>
-   cd nvidia-ovrtx-usd-viewer
+   uv pip install -e .
    ```
 
 ---
@@ -74,7 +80,7 @@ Start the server with live-streamed logs:
 python -m rtx_viewer.server
 ```
 
-Then open [http://localhost:8080](http://localhost:8080) in your browser.
+Then open [http://localhost:8080](http://localhost:8080) in your browser. The server binds to `127.0.0.1` by default, so it is only accessible from the same machine.
 
 The server will boot the RTX renderer, then wait for a browser connection. The first client that connects triggers the default scene load (`usd_samples/simple_scene.usda`). Frames are only rendered while at least one browser tab is connected and a scene is loaded, so the GPU stays idle otherwise.
 
@@ -195,7 +201,7 @@ python scripts/render_test.py
 - **Black screen on first load**: The RTX renderer may need a few seconds to compile shaders and build the scene. Wait for the status bar to show `Loaded ...`.
 - **Missing texture warnings**: Warnings like `checkerboard.png` not found are harmless if the material still renders. Copy the referenced texture next to the USD file to resolve them.
 - **Wrong camera**: The auto-discovery prefers the first non-test camera. If a scene has unusual camera names, you can extend `RTXViewerRenderer._pick_main_camera` or load with an explicit `camera_path`.
-- **Port 8080 is in use**: Change the port in `src/rtx_viewer/server.py` in the `main()` function, or set `PORT` in the environment and restart.
+- **Port 8080 is in use**: Set the `PORT` environment variable and restart. For example, `$env:PORT=9090` in PowerShell. You can also set `HOST` to change the bind address (default is `127.0.0.1`).
 - **Validate ovrtx Independantly**: If you continue to run into issues, I recommend cloning the [ovrtx](https://github.com/nvidia-omniverse/ovrtx) repository and running through their "Getting Started" guide to ensure that your system runs that correctly.
 
 ---
