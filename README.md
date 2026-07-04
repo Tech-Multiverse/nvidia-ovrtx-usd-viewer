@@ -24,38 +24,45 @@ This project is intended as a **minimal, hackable reference** for building brows
 
 ## Requirements
 
-- **Windows** with an NVIDIA RTX-capable GPU.
-- **Python 3.10+** inside a conda environment.
-- A conda environment that already contains the NVIDIA `ovrtx` package (and its dependencies, e.g., `carb`, `omni.*`, `pxr`). This package is not available on PyPI; it comes from the Omniverse / Isaac Sim ecosystem.
-- `uv` installed in that conda environment for fast dependency resolution.
+- **Windows or Linux** with an NVIDIA RTX-capable GPU. (Windows is the primary platform tested; Linux should work with the same NVIDIA `ovrtx` stack.)
+- **Python 3.10+**.
+- **USD Scenes**: For USD scenes to load properly, they must include a light and a camera. Simple scenes are more likely to work in this viewer POC. Working samples are provided in the `usd_samples` directory.        
 
-> The project assumes an environment named `ovlibraries`. If yours is different, replace `ovlibraries` in the commands below.
+---
+
+> The commands below use `ovrtx_env` as the environment name and `uv`, which is the required installer for `ovrtx`. If you prefer a different environment name or environment manager, replace accordingly. You will not be able to pip install the `ovrtx` package until NVIDIA publishes it to PyPI.
 
 ---
 
 ## Installation
 
-Clone the repository and enter the project directory:
+The following workflow creates a conda environment, installs `uv`, pulls the `ovrtx` package with `uv`, and installs the web-server dependencies from this repo.
 
-```powershell
-git clone <repo-url>
-cd rtx-viewer-demo-pro
-```
+1. **Create and activate a conda environment.**
 
-Install the project in editable mode so the Python package is on the path:
+   ```powershell
+   conda create -n ovrtx_env python=3.12
+   conda activate ovrtx_env
+   ```
 
-```powershell
-conda activate ovlibraries
-uv pip install -e .
-```
+2. **Install `uv`.**
 
-Or without activating the environment:
+   ```powershell
+   pip install uv
+   ```
 
-```powershell
-conda run -n ovlibraries uv pip install -e .
-```
+3. **Add `ovrtx` and the web dependencies.**
 
-This installs the web server dependencies (`fastapi`, `uvicorn`, `websockets`, `python-multipart`, `pillow`, `numpy`). It does **not** install `ovrtx`, which must already be present in your conda environment.
+   ```powershell
+   uv add ovrtx
+   ```
+
+4. **Clone this repository and enter it.**
+
+   ```powershell
+   git clone <repo-url>
+   cd nvidia-ovrtx-usd-viewer
+   ```
 
 ---
 
@@ -64,13 +71,6 @@ This installs the web server dependencies (`fastapi`, `uvicorn`, `websockets`, `
 Start the server with live-streamed logs:
 
 ```powershell
-conda run -n ovlibraries --live-stream python -m rtx_viewer.server
-```
-
-Or, if you have already activated the environment:
-
-```powershell
-conda activate ovlibraries
 python -m rtx_viewer.server
 ```
 
@@ -175,10 +175,17 @@ The `scripts/` folder contains small standalone tools:
 | `scripts/test_upload.py` | Upload a USD file via the HTTP endpoint. |
 | `scripts/test_upload_and_load.py` | Upload a USD file and load it over WebSocket. |
 
-Run any of them from the `ovlibraries` environment, for example:
+Run any of them with `uv run`, for example:
 
 ```powershell
-conda run -n ovlibraries python scripts/render_test.py
+uv run python scripts/render_test.py
+```
+
+Or with the conda environment directly:
+
+```powershell
+conda activate ovrtx_env
+python scripts/render_test.py
 ```
 
 ---

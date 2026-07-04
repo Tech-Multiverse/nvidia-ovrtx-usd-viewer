@@ -10,6 +10,7 @@ dependencies = [
     "python-multipart>=0.0.9",
     "pillow>=12",
     "numpy>=2",
+    "ovrtx>=0.3.0.312915",
 ]
 
 [project.optional-dependencies]

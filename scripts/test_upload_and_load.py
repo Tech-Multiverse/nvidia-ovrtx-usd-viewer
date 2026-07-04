@@ -2,12 +2,17 @@
 import asyncio
 import json
 import urllib.request
+from pathlib import Path
+
 import websockets
+
+
+repo_root = Path(__file__).resolve().parent.parent
 
 
 def upload_file(file_path: str) -> str:
     boundary = '----WebKitFormBoundary7MA4YWxk'
-    filename = file_path.split('\\')[-1]
+    filename = Path(file_path).name
     with open(file_path, 'rb') as f:
         body = (
             f'--{boundary}\r\n'
@@ -23,7 +28,7 @@ def upload_file(file_path: str) -> str:
 
 
 async def main():
-    file_path = r'C:\Users\Rob\dev\rtx-viewer-demo-pro\usd_samples\cube_stacks_scene.usda'
+    file_path = str(repo_root / "usd_samples" / "cube_stacks_scene.usda")
     print(f"Uploading {file_path}...")
     uploaded_path = upload_file(file_path)
     print(f"Uploaded to: {uploaded_path}")

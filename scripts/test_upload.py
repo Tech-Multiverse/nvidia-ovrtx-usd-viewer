@@ -1,10 +1,12 @@
 """Test the /api/upload_scene endpoint by uploading a local USD file."""
 import urllib.request
 import sys
+from pathlib import Path
 
 boundary = '----WebKitFormBoundary7MA4YWxk'
-file_path = sys.argv[1] if len(sys.argv) > 1 else r'C:\Users\Rob\dev\rtx-viewer-demo-pro\usd_samples\cube_stacks_scene.usda'
-filename = file_path.split('\\')[-1]
+repo_root = Path(__file__).resolve().parent.parent
+file_path = sys.argv[1] if len(sys.argv) > 1 else str(repo_root / "usd_samples" / "cube_stacks_scene.usda")
+filename = Path(file_path).name
 
 with open(file_path, 'rb') as f:
     body = (
