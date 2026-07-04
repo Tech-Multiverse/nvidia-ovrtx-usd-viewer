@@ -76,6 +76,8 @@ The following workflow creates a conda environment, installs `uv`, pulls the `ov
 
 Start the server with live-streamed logs:
 
+**NOTE**: The server takes time to boot up the first time it runs. More complex USD scenes will also take longer to load the first time they are opened.
+
 ```powershell
 python -m rtx_viewer.server
 ```
