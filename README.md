@@ -111,7 +111,7 @@ The server will boot the RTX renderer, then wait for a browser connection. The f
 
 ```
 ┌─────────────┐      WebSocket / JPEG      ┌─────────────────────┐
-│  Browser    │  ◄──────────────────────►   │  FastAPI server     │
+│  Browser    │  ◄──────────────────────►  │  FastAPI server     │
 │  (web/)     │   REST / file upload       │  (src/rtx_viewer/)  │
 └─────────────┘                            └──────────┬──────────┘
                                                        │
