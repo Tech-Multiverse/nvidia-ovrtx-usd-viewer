@@ -1,6 +1,9 @@
 # RTX USD Viewer
 
-## 🚀 PROJECT VIDEO AND ARTICLE COMING SOON!!
+
+[Project Article](https://tech-multiverse.com/ai/you-can-build-a-usd-viewer-with-nvidia-omniverse-ovrtx-and-devin-ai/)
+
+[Project Video](https://youtu.be/78f5g93q6IE)
 
 A real-time **USD scene viewer** that runs in the browser. It uses NVIDIA's `ovrtx` (Omniverse RTX) Python package to render locally with RTX, then streams JPEG frames to a web UI over WebSocket. You can load any local USD scene, inspect the prim hierarchy, pick prims by clicking the rendered image, and transform the selected prim.
 
@@ -30,7 +33,7 @@ This project is intended as a **minimal, hackable reference** for building brows
 
 ---
 
-> The commands below use `ovrtx_env` as the environment name and `uv`, which is the required installer for `ovrtx`. If you prefer a different environment name or environment manager, replace accordingly. You will not be able to pip install the `ovrtx` package until NVIDIA publishes it to PyPI.
+> The commands below use `ovrtx_env` as the environment name and `uv`, which is the required installer for `ovrtx`. If you prefer a different environment name or environment manager, update Step 2 accordingly. You will not be able to pip install the `ovrtx` package until NVIDIA publishes it to PyPI.
 
 ---
 
